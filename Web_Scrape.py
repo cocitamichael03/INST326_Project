@@ -8,4 +8,3 @@ count = 0
 for line in our_url:
     line = line.decode("utf-8")
     print(line)
-    #
