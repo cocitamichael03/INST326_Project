@@ -1,5 +1,4 @@
 import random
-
 def choose_character(self):
     numb = random.randrange(1,5)
     if numb == 1:
@@ -21,8 +20,9 @@ class Player(PowerUp):
         self.attack = 5
         self.blocks = 0
         self.special = 0
+        self.power_up_level = 0
 
-    # Player Stats -----------------------------------------------------------
+# Player Stats -----------------------------------------------------------
     
     def get_name(self):
         return self.name
@@ -36,7 +36,7 @@ class Player(PowerUp):
     def block(self):
         self.blocks += 1
     
-   # Actions ------------------------------------------------------------------
+# Actions ------------------------------------------------------------------
     def change_health(self, number):
         self.health -= number
     
@@ -65,23 +65,21 @@ class Player(PowerUp):
             self.attack = 25
             self.special = 0
 
-
     def attack_opponent(self, powerup = False):
+        self.power_up_level += 5
+        if self.power_up_level == 50:
+            self.power_up()
         self.add_super()
         print(self.attack, self.special)
         return self.attack
     
-    
-    
-    
-    #Declare winner and loser ---------------------------------------------
+#Declare winner and loser ---------------------------------------------
+
     def loss(self):
         return f"{self.name}, you lose."
     
     def winner(self):
         return f"{self.name}, you win!"
-
-
 
 def play_game():
     rounds = 0
@@ -95,9 +93,9 @@ def play_game():
             rounds += 1
             opponent = players[(players.index(each)+1)%2]
             each.on_defense(opponent.attack_opponent())
-            #print(each.get_name(), each.get_health())
+
             if each.get_health() < 1:
-                #print(each.get_name(), each.get_health())
+                
                 for player in players:
                     print(f"Name: {player.get_name()}, Health: {player.get_health()}, Blocks: {player.get_blocks()}")
                 print(each.loss())
