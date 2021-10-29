@@ -28,6 +28,7 @@ class Player:
     def add_super(self):
         self.special += 5
         if self.special == 50:
+            self.special = 0
             self.attack = 25
 
     def on_defense(self, number):
@@ -43,16 +44,11 @@ class Player:
         self.attack += 1#find a power up
 
     def attack_opponent(self):
-        if self.attack == 25:
-            self.add_super()
-            self.new_attack = self.attack
-            self.attack = 5
-            return self.new_attack
-        
-        if self.attack == 5:
-            self.add_super()
-            print(self.attack)
-            return self.attack
+        self.add_super()
+        print(self.attack, self.special)
+        self.new_attack = self.attack
+        self.attack = 5
+        return self.new_attack
     
     def block(self):
         self.blocks += 1

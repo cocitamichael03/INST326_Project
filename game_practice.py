@@ -5,9 +5,15 @@ def choose_character(self):
     if numb == 1:
         character = ""
 
+class PowerUp:
+    def __init__(self):
+        return self.powerup
+    def power_up(self):
+        self.powerup = 0
+        if self.powerup == 0:
+            return 2
 
-
-class Player:
+class Player(PowerUp):
     def __init__(self, name):
         self.name = name
         self.health = 100
@@ -15,6 +21,8 @@ class Player:
         self.attack = 5
         self.blocks = 0
         self.special = 0
+
+    # Player Stats -----------------------------------------------------------
     
     def get_name(self):
         return self.name
@@ -22,54 +30,58 @@ class Player:
     def get_health(self):
         return self.health
     
-    def change_defense(self, number):
+    def get_blocks(self):
+        return self.blocks
+    
+    def block(self):
+        self.blocks += 1
+    
+   # Actions ------------------------------------------------------------------
+    def change_health(self, number):
         self.health -= number
     
-    def add_super(self):
-        self.special += 5
-        if self.special == 50:
-            self.attack = 25
-
+    def change_attack(self):
+        self.attack += 1#find a power up
+    
     def on_defense(self, number):
+        """This is the method for the player on defense for the round. It allows
+        the playet to potentially block the """
         ran = random.randrange(0,2)
         
         if ran == 1:
             #print(self.name, "Blocked!")
             self.block()
         else:
-            self.change_defense(number)
+            self.change_health(number)
+    
+    def add_super(self):
         
-    def change_attack(self):
-        self.attack += 1#find a power up
-
-    def attack_opponent(self):
         if self.attack == 25:
-            self.add_super()
-            self.new_attack = self.attack
             self.attack = 5
-            return self.new_attack
+            self.special = 0
+        self.special += 5
         
-        if self.attack == 5:
-            self.add_super()
-            print(self.attack)
-            return self.attack
+        if self.special == 50:
+            self.attack = 25
+            self.special = 0
+
+
+    def attack_opponent(self, powerup = False):
+        self.add_super()
+        print(self.attack, self.special)
+        return self.attack
     
-    def block(self):
-        self.blocks += 1
     
-    def get_blocks(self):
-        return self.blocks
     
+    
+    #Declare winner and loser ---------------------------------------------
     def loss(self):
         return f"{self.name}, you lose."
     
     def winner(self):
         return f"{self.name}, you win!"
 
-class PowerUp(Player):
-    #self.heal
-    #double damage
-    pass
+
 
 def play_game():
     rounds = 0
@@ -93,12 +105,8 @@ def play_game():
                 var = False
                 break
             
-        #print("\n")
         if var == False:
             break
     
 if __name__ == "__main__":
     play_game()
-
-x = input("Please choose an attack: Attack 1 (20 damage) Attack 2 (40 damage):")
-print(x)
