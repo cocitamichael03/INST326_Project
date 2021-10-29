@@ -1,9 +1,11 @@
 import random
 
-# Every 5 rounds, each player gets a random power up.
-# Print player stats.
 def choose_character(self):
     numb = random.randrange(1,5)
+    if numb == 1:
+        character = ""
+
+
 
 class Player:
     def __init__(self, name):
@@ -12,6 +14,7 @@ class Player:
         self.times_2_attack = 0
         self.attack = 5
         self.blocks = 0
+        self.special = 0
     
     def get_name(self):
         return self.name
@@ -21,12 +24,17 @@ class Player:
     
     def change_defense(self, number):
         self.health -= number
+    
+    def add_super(self):
+        self.special += 5
+        if self.special == 50:
+            self.attack = 25
 
     def on_defense(self, number):
         ran = random.randrange(0,2)
         
         if ran == 1:
-            print(self.name, "Blocked!")
+            #print(self.name, "Blocked!")
             self.block()
         else:
             self.change_defense(number)
@@ -35,7 +43,16 @@ class Player:
         self.attack += 1#find a power up
 
     def attack_opponent(self):
-        return self.attack
+        if self.attack == 25:
+            self.add_super()
+            self.new_attack = self.attack
+            self.attack = 5
+            return self.new_attack
+        
+        if self.attack == 5:
+            self.add_super()
+            print(self.attack)
+            return self.attack
     
     def block(self):
         self.blocks += 1
@@ -50,7 +67,8 @@ class Player:
         return f"{self.name}, you win!"
 
 class PowerUp(Player):
-
+    #self.heal
+    #double damage
     pass
 
 def play_game():
@@ -82,11 +100,5 @@ def play_game():
 if __name__ == "__main__":
     play_game()
 
-
-#p1 = Player("Player1")
-#p2 = Player("Player2")
-#p1.on_defense(p2.attack_opponent())
-#print(p1.get_health())
-
-#player 1
-#player 2
+x = input("Please choose an attack: Attack 1 (20 damage) Attack 2 (40 damage):")
+print(x)
