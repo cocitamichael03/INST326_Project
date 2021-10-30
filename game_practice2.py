@@ -76,7 +76,7 @@ class Player(PowerUp):
             self.special += 10
         if times_2 == False:
             self.special += 5
-            if self.special == 50:
+            if self.special >= 50:
                 self.special = 0
                 self.super_hit +=1
     def add_super(self):
@@ -114,7 +114,6 @@ class Player(PowerUp):
                     a = input(f"You do not have any super hits!\n{character(self.chr_numb)}")
                     
                 elif self.super_hit > 0:
-                    self.super_hit -= 1
                     break
             else:
                 a = input(f"That input is invalid.\n{character(self.chr_numb)}")
@@ -139,6 +138,7 @@ class Player(PowerUp):
             else:
                 return 0
         elif a == 5:
+            self.super_hit -= 1
             return 60
         else:
             self.add_super2(True)
