@@ -7,6 +7,7 @@ def choose_character(self):
 class PowerUp:
     def __init__(self):
         return self.powerup
+    
     def power_up(self):
         self.powerup = 0
         if self.powerup == 0:
@@ -44,6 +45,7 @@ class Player(PowerUp):
         self.attack += 1#find a power up
     
     def on_defense(self, number):
+        
         """This is the method for the player on defense for the round. It allows
         the playet to potentially block the """
         ran = random.randrange(0,2)
