@@ -11,4 +11,5 @@ def get_daily_intake(weight, height, age = False, gender = "Male"):
 
     if gender.lower() == "female":
         print("female")
-print(random.randrange(1,4))
+#print(random.randrange(1,4))
+

@@ -38,7 +38,7 @@ class PowerUp:
 class Player(PowerUp):
     def __init__(self, name, chr_numb):
         self.name = name
-        self.health = 100
+        self.health = 5
         self.times_2_attack = 0
         self.attack = 20
         self.blocks = 0
@@ -79,7 +79,7 @@ class Player(PowerUp):
         else:
             if ran == 1:
                 print(self.name, "blocked your attack!")
-                time.sleep(3)
+                time.sleep(1)
                 self.block()
             else:
                 print(self.name, f"-{number} health")
@@ -117,7 +117,16 @@ class Player(PowerUp):
             greeting = "you got this!"
         #greet -------------------------------------------
         #Player's turn
-        print(f"\n{self.name}, {greeting}\nStats - Attack: {self.attack}, Special: {self.special}, Health: {self.health}, Super hits: {self.super_hit}")
+        #1
+        #print(f"\n{self.name}, {greeting}\nStats - Attack: {self.attack}, Special: {self.special}, Health: {self.health}, Super hits: {self.super_hit}")
+        
+        player_ = [f"\n{self.name}, {greeting}\nStats - Attack: {self.attack}, Special: {self.special}, Health: {self.health}, Super hits: {self.super_hit}"]
+        for each in player_:
+            lines = each.split("\n")
+            for each in lines:
+                print(each)
+                time.sleep(.75)
+        
         #functions for characters
         a = input(character(self.chr_numb))
         a = int(a)
@@ -145,12 +154,14 @@ class Player(PowerUp):
             if a == opp_def:
                 return self.attack + 10
             else:
+                print(f"{self.name}, you missed!")
                 return 0
         elif a == 3:
             opp_def = random.randrange(1,4)
             if a == opp_def:
                 return self.attack + 20
             else:
+                print(f"{self.name}, you missed!")
                 return 0
         elif a == 5:
             self.super_hit -= 1
@@ -171,9 +182,11 @@ class Player(PowerUp):
 
 def play_game():
     rounds = 0
-    player1_chr = choose_character("Player 1")
-    player2_chr = choose_character("Player 2")
-    players = [Player("Player1", player1_chr), Player("Player2", player2_chr)]
+    player1 = input("Player 1, enter your screen name.")
+    player2 = input("Player 2, enter your screen name.")
+    player1_chr = choose_character(player1)
+    player2_chr = choose_character(player2)
+    players = [Player(player1, player1_chr), Player(player2, player2_chr)]
     
     var = True
     
@@ -194,6 +207,10 @@ def play_game():
                 break
             
         if var == False:
+            leaderboard = open("leaderboard.txt", "a")
+            leaderboard.write(f"{player1}, {player2}\n")
+            leaderboard.close()
+
             break
     
 if __name__ == "__main__":
