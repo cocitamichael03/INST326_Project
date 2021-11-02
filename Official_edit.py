@@ -21,7 +21,7 @@ def character(chr_numb):
     if chr_numb == 2: #Falconstein 
         return f"Please choose attack: \n(1) Birdseye       (2) Big punch \n(3) Volcanic blaze (4) +15 special.\n-----> "
     if chr_numb == 3: #Gasmosphere
-        return f"Please choose attack: \n(1) Gas mist       (2) Fiery breeze\n(3) Forest fire (4) +15 special.\n-----> "
+        return f"Please choose attack: \n(1) Gas mist       (2) Fiery breeze\n(3) Forest fire  (4) +15 special.\n-----> "
     if chr_numb == 4: #Atomic Tic
         return f"Please choose attack: \n(1) Explode        (2) Radiactice wave\n(3) Atomic bomb (4) +15 special.\n-----> "
 
@@ -38,9 +38,9 @@ class PowerUp:
 class Player(PowerUp):
     def __init__(self, name, chr_numb):
         self.name = name
-        self.health = 5
+        self.health = 100 # <-----------------------------health
         self.times_2_attack = 0
-        self.attack = 20
+        self.attack = 20  # <-----------------------------attack
         self.blocks = 0
         self.special = 0
         self.power_up_level = 0
