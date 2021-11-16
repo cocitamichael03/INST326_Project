@@ -23,14 +23,14 @@ def choose_character(player):
 
 def character(chr_numb):
     if chr_numb == 1: #Volcamore
-        return f"Please choose attack: \n(1) Ash storm      (2) Rock smash\n(3) Volcanic blaze (4) +15 special.\n-----> "
+        return f"Please choose attack: \n(1) Ash storm      (2) Rock smash\n(3) Volcanic blaze (4) +15 special.\nChoose (6) to exit.\n-----> "
     
     if chr_numb == 2: #Falconstein 
-        return f"Please choose attack: \n(1) Birdseye       (2) Big punch \n(3) Volcanic blaze (4) +15 special.\n-----> "
+        return f"Please choose attack: \n(1) Birdseye       (2) Big punch \n(3) Volcanic blaze (4) +15 special.\nChoose (6) to exit.\n-----> "
     if chr_numb == 3: #Gasmosphere
-        return f"Please choose attack: \n(1) Gas mist       (2) Fiery breeze\n(3) Forest fire  (4) +15 special.    (5) Exit\n-----> "
+        return f"Please choose attack: \n(1) Gas mist       (2) Fiery breeze\n(3) Forest fire  (4) +15 special.\nChoose (6) to exit.\n-----> "
     if chr_numb == 4: #Atomic Tic
-        return f"Please choose attack: \n(1) Explode        (2) Radiactice wave\n(3) Atomic bomb (4) +15 special.\n-----> "
+        return f"Please choose attack: \n(1) Explode        (2) Radiactice wave\n(3) Atomic bomb (4) +15 special.\nChoose (6) to exit.\n-----> "
 
 
 #-----------------------------------------Power Up Class---------------------------------
@@ -71,6 +71,10 @@ class Player(PowerUp):
         self.blocks += 1
     
 # Actions ------------------------------------------------------------------
+    def exit_game(self):
+        self.health = 0
+        print(f"{self.name} you forfeit!")
+    
     def change_health(self, number):
         self.health -= number
     
@@ -173,7 +177,7 @@ class Player(PowerUp):
             return None
                 
     def attack_opponent(self):
-        reg_options = [1,2,3,4]
+        reg_options = [1,2,3,4,6]
         #greet -------------------------------------------
         greeting = random.randrange(1,3)
         if greeting == 1:
@@ -233,6 +237,8 @@ class Player(PowerUp):
         elif a == 5:
             self.super_hit -= 1
             return 60
+        elif a == 6:
+            self.exit_game()
         else:
             self.add_super2(True)
             return None 
@@ -278,11 +284,9 @@ def play_game():
             if count == 0:
                 players[0].on_defense(players[1].attack_opponent2(random.randrange(1,5)))
                 count += 1
-                print(count, "Player 1")
             if count == 1:
                 count = 0
                 players[1].on_defense(players[0].attack_opponent())
-                print(count, "Player 2")
         
         
             for each in players:

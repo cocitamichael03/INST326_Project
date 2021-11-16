@@ -1,4 +1,6 @@
 import time
+import random 
+
 def choose_character(player):
     if player != "computer":
         x = input(f"\n{player}, please choose a character:\n(1) Volcamore     (2) Falconstein\n(3) Gasmosphere   (4) Atomic Tic\n----->")
