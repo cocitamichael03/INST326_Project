@@ -77,7 +77,6 @@ class Player(PowerUp):
     
     def change_health(self, number):
         self.health -= number
-    
     def change_attack(self):
         self.attack += 1#find a power up
     
@@ -251,6 +250,22 @@ class Player(PowerUp):
     def winner(self):
         return f"------{self.name}, you win!------"
 
+    #Play Game Again------------------------------------------------------
+    def play_again(self):
+        option = input(" Would you like to play again?").lower()
+        while True:
+            if option == "yes":
+                play_game()
+            elif option == "no":
+                self.dont_play()
+            else:
+                option = input(" That is not a valid answer. Try again.").lower()
+    
+    #Exits the game-----------------            
+    def dont_play(self):
+        print("Thanks for playing! Check out the leaderboards")
+        exit()
+
 def play_game():
     number_of_players = input("Choose (1) 1 player or (2) 2 players: ")
     number_of_players = int(number_of_players)
@@ -312,6 +327,8 @@ def play_game():
                     print(f"      Total rounds: {rounds}")
                     var = False
                     break
+
+    players[0].play_again()
                 
             
 if __name__ == "__main__":
