@@ -47,7 +47,7 @@ class PowerUp:
 class Player(PowerUp):
     def __init__(self, name, chr_numb):
         self.name = name
-        self.health = 100# <-----------------------------health
+        self.health = 1# <-----------------------------health
         self.times_2_attack = 0
         self.attack = 20  # <-----------------------------attack
         self.blocks = 0
@@ -145,13 +145,13 @@ class Player(PowerUp):
         if a == 1:
             opp_def = 1
             if a == opp_def:
-                print("Computer attacked you!") #############################################
+                print("Computer attacked you!") 
                 time.sleep(.5)
                 return self.attack
         elif a == 2:
             opp_def = random.randrange(1,3)
             if a == opp_def:
-                print("Computer attacked you!") #############################################
+                print("Computer attacked you!") 
                 time.sleep(.5)
                 return self.attack + 10
             else:
@@ -161,7 +161,7 @@ class Player(PowerUp):
         elif a == 3:
             opp_def = random.randrange(1,4)
             if a == opp_def:
-                print("Computer attacked you!") #############################################
+                print("Computer attacked you!") 
                 time.sleep(.5)
                 return self.attack + 20
             else:
@@ -174,7 +174,7 @@ class Player(PowerUp):
         else:
             self.add_super2(True)
             return None
-    # Critcal hit ------------------------------------------------------------------
+    # Critical hit ------------------------------------------------------------------
     def crit_chance(self):
         crit_set = random.randrange(0,11)
         if crit_set <= 3:
@@ -194,10 +194,7 @@ class Player(PowerUp):
         else:
             greeting = "you got this!"
         #greet -------------------------------------------
-        #Player's turn
-        #1
-        #print(f"\n{self.name}, {greeting}\nStats - Attack: {self.attack}, Special: {self.special}, Health: {self.health}, Super hits: {self.super_hit}")
-        
+
         player_ = [f"\n{self.name}, {greeting}\nStats - Attack: {self.attack}, Special: {self.special}, Health: {self.health}, Super hits: {self.super_hit}"]
         for each in player_:
             lines = each.split("\n")
@@ -205,7 +202,7 @@ class Player(PowerUp):
                 print(each)
                 time.sleep(.75)
         
-        #functions for characters
+        #functions for characters----------------------------------------------- 
         a = input(character(self.chr_numb))
         a = int(a)
         while True:  #-----------------------Pick an attack (6) will be exit
@@ -226,18 +223,18 @@ class Player(PowerUp):
         if a == 1:
             opp_def = 1
             if a == opp_def:
-                return self.attack
+                return self.crit_chance()
         elif a == 2:
             opp_def = random.randrange(1,3)
             if a == opp_def:
-                return self.attack + 10
+                return self.crit_chance() + 10
             else:
                 print(f"{self.name}, you missed!")
                 return 0
         elif a == 3:
             opp_def = random.randrange(1,4)
             if a == opp_def:
-                return self.attack + 20
+                return self.crit_chance() + 20
             else:
                 print(f"{self.name}, you missed!")
                 return 0
@@ -272,12 +269,13 @@ class Player(PowerUp):
     #Exits the game-----------------            
     def dont_play(self):
         print("Thanks for playing! Check out the leaderboards")
+        check_leaderboard()
         exit()
 
 # check leaderboard function ------------------------------------------------------------------
 def check_leaderboard():
     print("Leaderboard: \n")
-    with open('Leaderboard') as f:
+    with open('leaderboard.txt') as f:
         contents = f.read()
         print(contents)
 
@@ -304,7 +302,12 @@ def play_game():
     while True:
         if var == False:
             leaderboard = open("leaderboard.txt", "a")
-            leaderboard.write(f"{player1}\n")
+            for each in players:
+                if int(player.get_health()) > 0:
+                    result = "win"
+                else:
+                    result = "lose"
+            leaderboard.write(f"{player1},{result}\n")
             leaderboard.close()
             break
         
