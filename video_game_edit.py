@@ -1,6 +1,5 @@
 import random
 import time
-"hi "
 
 def choose_character(player):
     if player != "computer":
@@ -24,14 +23,14 @@ def choose_character(player):
 
 def character(chr_numb):
     if chr_numb == 1: #Volcamore
-        return f"Please choose attack: \n(1) Ash storm      (2) Rock smash\n(3) Volcanic blaze (4) +15 special.\n-----> "
+        return f"Please choose attack: \n(1) Ash storm      (2) Rock smash\n(3) Volcanic blaze (4) +15 special.\nChoose (6) to exit.\n-----> "
     
     if chr_numb == 2: #Falconstein 
-        return f"Please choose attack: \n(1) Birdseye       (2) Big punch \n(3) Volcanic blaze (4) +15 special.\n-----> "
+        return f"Please choose attack: \n(1) Birdseye       (2) Big punch \n(3) Volcanic blaze (4) +15 special.\nChoose (6) to exit.\n-----> "
     if chr_numb == 3: #Gasmosphere
-        return f"Please choose attack: \n(1) Gas mist       (2) Fiery breeze\n(3) Forest fire  (4) +15 special.    (5) Exit\n-----> "
+        return f"Please choose attack: \n(1) Gas mist       (2) Fiery breeze\n(3) Forest fire  (4) +15 special.\nChoose (6) to exit.\n-----> "
     if chr_numb == 4: #Atomic Tic
-        return f"Please choose attack: \n(1) Explode        (2) Radiactice wave\n(3) Atomic bomb (4) +15 special.\n-----> "
+        return f"Please choose attack: \n(1) Explode        (2) Radiactice wave\n(3) Atomic bomb (4) +15 special.\nChoose (6) to exit.\n-----> "
 
 
 #-----------------------------------------Power Up Class---------------------------------
@@ -72,9 +71,12 @@ class Player(PowerUp):
         self.blocks += 1
     
 # Actions ------------------------------------------------------------------
+    def exit_game(self):
+        self.health = 0
+        print(f"{self.name} you forfeit!")
+    
     def change_health(self, number):
         self.health -= number
-    
     def change_attack(self):
         self.attack += 1#find a power up
     
@@ -172,9 +174,17 @@ class Player(PowerUp):
         else:
             self.add_super2(True)
             return None
+    # Critcal hit ------------------------------------------------------------------
+    def crit_chance(self):
+        crit_set = random.randrange(0,11)
+        if crit_set <= 3:
+            print("Critical Hit!")
+            return self.attack + 50
+        else:
+            return self.attack
                 
     def attack_opponent(self):
-        reg_options = [1,2,3,4]
+        reg_options = [1,2,3,4,6]
         #greet -------------------------------------------
         greeting = random.randrange(1,3)
         if greeting == 1:
@@ -234,6 +244,8 @@ class Player(PowerUp):
         elif a == 5:
             self.super_hit -= 1
             return 60
+        elif a == 6:
+            self.exit_game()
         else:
             self.add_super2(True)
             return None 
@@ -245,6 +257,29 @@ class Player(PowerUp):
     
     def winner(self):
         return f"------{self.name}, you win!------"
+
+    #Play Game Again------------------------------------------------------
+    def play_again(self):
+        option = input(" Would you like to play again?").lower()
+        while True:
+            if option == "yes":
+                play_game()
+            elif option == "no":
+                self.dont_play()
+            else:
+                option = input(" That is not a valid answer. Try again.").lower()
+    
+    #Exits the game-----------------            
+    def dont_play(self):
+        print("Thanks for playing! Check out the leaderboards")
+        exit()
+
+# check leaderboard function ------------------------------------------------------------------
+def check_leaderboard():
+    print("Leaderboard: \n")
+    with open('Leaderboard') as f:
+        contents = f.read()
+        print(contents)
 
 def play_game():
     number_of_players = input("Choose (1) 1 player or (2) 2 players: ")
@@ -279,11 +314,9 @@ def play_game():
             if count == 0:
                 players[0].on_defense(players[1].attack_opponent2(random.randrange(1,5)))
                 count += 1
-                print(count, "Player 1")
             if count == 1:
                 count = 0
                 players[1].on_defense(players[0].attack_opponent())
-                print(count, "Player 2")
         
         
             for each in players:
@@ -309,6 +342,8 @@ def play_game():
                     print(f"      Total rounds: {rounds}")
                     var = False
                     break
+
+    players[0].play_again()
                 
             
 if __name__ == "__main__":
