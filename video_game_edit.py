@@ -144,6 +144,8 @@ class Player(PowerUp):
     
     def change_health(self, number):
         self.health -= number
+        return self.health
+
     def change_attack(self):
         self.attack += 1 # <------------------------------------- find a power up
     
@@ -165,6 +167,7 @@ class Player(PowerUp):
             print(f"{self.name}, opponent did not strike.")
             time.sleep(1)
         else:
+
             if ran == 1:
                 print(self.name, "blocked your attack!")
                 time.sleep(1)
@@ -173,6 +176,7 @@ class Player(PowerUp):
                 print(self.name, f"-{number} health")
                 time.sleep(1)
                 self.change_health(number)
+            return "Opponent Striked"
     
     
     def add_super2(self, times_2 = False):
