@@ -1,18 +1,5 @@
-"""
-
-
-
-
-"""
-
-
-
-
 import random
 import time
-
-
-
 
 def choose_character(player):
     """
