@@ -1,7 +1,33 @@
+"""
+
+
+
+
+"""
+
+
+
+
 import random
 import time
 
+
+
+
 def choose_character(player):
+    """
+        Allows the player to choose their character 
+    or assign a character to the computer bot.
+
+    Args: 
+        time.sleep(.9): paues execution for .9 seconds
+        player: user (1 player) or computer bot (2 player)
+        x : the int being inputted by the user when picking character
+    
+    Returns:
+            int(x): the selected or randomized name of character
+    """
+    
     if player != "computer":
         x = input(f"\n{player}, please choose a character:\n(1) Volcamore     (2) Falconstein\n(3) Gasmosphere   (4) Atomic Tic\n----->")
     else:
@@ -22,6 +48,20 @@ def choose_character(player):
 #-----------------------------------------Character function---------------------------------
 
 def character(chr_numb):
+    """
+        Allows user to choose the kind of
+    attack fortheir selected character. 
+    
+    Args: 
+         chr_numb: Accepts int one through six. 
+
+    Returns:
+         chr_numb == 1 : The attack options for Volcamore and an exit option.
+         chr_numb == 2 : The attack options for Falconstein and an exit option. 
+         chr_numb == 3 : The attack options for Gasmosphere and an exit option. 
+         chr_numb == 4 : The attack options for Atomic Tin and an exit option. 
+    """
+    
     if chr_numb == 1: #Volcamore
         return f"Please choose attack: \n(1) Ash storm      (2) Rock smash\n(3) Volcanic blaze (4) +15 special.\nChoose (6) to exit.\n-----> "
     
@@ -35,10 +75,26 @@ def character(chr_numb):
 
 #-----------------------------------------Power Up Class---------------------------------
 class PowerUp:
+    """
+    
+    
+
+    
+    """
     def __init__(self):
+        """
+        
+        
+        """
         return self.powerup
     
     def power_up(self):
+        """
+        
+        
+        Returns:
+                
+        """
         self.powerup = 0
         if self.powerup == 0:
             return 2
@@ -72,18 +128,38 @@ class Player(PowerUp):
     
 # Actions ------------------------------------------------------------------
     def exit_game(self):
+        """
+            If the player chooses to exit the game, the system will bring
+        their points to 0 and tell them they forfeit. 
+        
+        Args:
+             self.health: automatically sets health to 0  when called
+             
+        Returns:
+                (self.name) you forfeit!: Tells the user they forfeit the game
+        """
+        
         self.health = 0
         print(f"{self.name} you forfeit!")
     
     def change_health(self, number):
         self.health -= number
     def change_attack(self):
-        self.attack += 1#find a power up
+        self.attack += 1 # <------------------------------------- find a power up
     
     def on_defense(self, number):
+        """
+            Allows the defensive player to potentially block
+        the attack of the ofensive player. 
         
-        """This is the method for the player on defense for the round. It allows
-        the playet to potentially block the """
+        Args:
+             number:
+             ran: assigns a random number 0-5 to be called
+             time.sleep(1): delays execution for 1 second
+             
+        Returns:
+                {self.name}, opponent did not strike: when 
+        """
         ran = random.randrange(0,5)
         if number == None:
             print(f"{self.name}, opponent did not strike.")
@@ -98,7 +174,12 @@ class Player(PowerUp):
                 time.sleep(1)
                 self.change_health(number)
     
+    
     def add_super2(self, times_2 = False):
+        """
+            
+        
+        """
         if times_2 == True:
             self.special += 10
         if times_2 == False:
