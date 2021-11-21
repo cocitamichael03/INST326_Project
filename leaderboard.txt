@@ -7,6 +7,3 @@ vinny
 vinny
 cocita
 c
-coc,lose
-,lose
-cocitamichael03,lose
