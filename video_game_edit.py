@@ -241,7 +241,8 @@ class Player(PowerUp):
     
     def add_super2(self, times_2 = False):
         """
-            
+        increases the super attack gauge for every
+        turn or normal special attack that passes  
         
         """
         if times_2 == True:
@@ -264,6 +265,11 @@ class Player(PowerUp):
             self.special = 0'''
 
     def attack_opponent2(self, number):
+        """
+        attack oppnent method generates the
+        chances of the computer hitting their attack or missing it
+        
+        """
         reg_options = [1,2,3,4]
         print(f"{self.name}'s turn.")
         time.sleep(.25)
