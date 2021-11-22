@@ -1,24 +1,18 @@
 import random
 import time
 
-
 def choose_character(player):
     """
         Allows the player to choose their character 
     or assign a character to the computer bot.
 
     Args: 
-        time.sleep(.9): pauses execution for .9 seconds
+        time.sleep(.9): paues execution for .9 seconds
         player: user (1 player) or computer bot (2 player)
         x : the int being inputted by the user when picking character
     
     Returns:
             int(x): the selected or randomized name of character
-            {player}, you are Volcamore!: if the user picked Volcamore
-            {player}, you are Falconstein!: if the user picked Falconstein
-            {player}, you are Gasmosphere!: if the user picked Gasmosphere 
-            {player}, you are Atomic Tic!: if the user picked Atomic tic
-            
     """
     
     if player != "computer":
@@ -38,7 +32,6 @@ def choose_character(player):
     time.sleep(.9)
     return int(x)
 
-
 #-----------------------------------------Character function---------------------------------
 
 def character(chr_numb):
@@ -50,10 +43,10 @@ def character(chr_numb):
          chr_numb: Accepts int one through six. 
 
     Returns:
-            1 : The attack options for Volcamore and an exit option.
-            2 : The attack options for Falconstein and an exit option. 
-            3 : The attack options for Gasmosphere and an exit option. 
-            4 : The attack options for Atomic Tin and an exit option. 
+         chr_numb == 1 : The attack options for Volcamore and an exit option.
+         chr_numb == 2 : The attack options for Falconstein and an exit option. 
+         chr_numb == 3 : The attack options for Gasmosphere and an exit option. 
+         chr_numb == 4 : The attack options for Atomic Tin and an exit option. 
     """
     
     if chr_numb == 1: #Volcamore
@@ -70,32 +63,24 @@ def character(chr_numb):
 #-----------------------------------------Power Up Class---------------------------------
 class PowerUp:
     """
-        The class PowerUp assures that the users special 
-    powerup level always starts at 0 and charges it to 2 if selected. 
     
-    Attribuites: 
-                powerup: str, the users powerful hit
     
-    Methods:
-            power_up: assigns powerup to 0 and changes
-            it to 2 if called.
+
+    
     """
-    
     def __init__(self):
         """
+        
         
         """
         return self.powerup
     
     def power_up(self):
         """
-            Sets the initial value of powerup to 0 and
-        changes it to 2 if users wants to use powerup
-        
         
         
         Returns:
-                2: powerup level 2
+                
         """
         self.powerup = 0
         if self.powerup == 0:
@@ -103,20 +88,6 @@ class PowerUp:
 
 #-----------------------------------------Player Class------------------------------------
 class Player(PowerUp):
-    """
-        Where the users components are initialized.   
-    
-    Attribuites:
-                name: user name
-                health: user initial health
-                times_2_attack: number of super hits
-                attack: the initial attack
-                blocks: initial user blocks
-                special: initial user special attack
-                power_up_level: initial user power level   
-                chr_numb: chr_numb
-                super_hit: inital super hit level
-    """
     def __init__(self, name, chr_numb):
         self.name = name
         self.health = 1# <-----------------------------health
@@ -131,53 +102,15 @@ class Player(PowerUp):
 # Player Stats -----------------------------------------------------------
     
     def get_name(self):
-        """
-            Aquires the name of the Player
-        
-        Attribuite: 
-                   get_name: considers player name
-        
-        Returns:
-                name: player name
-        """
         return self.name
     
     def get_health(self):
-        """
-            Aquires the health of the player
-            
-        Attribuite:
-                    get_health: considers player health
-        
-        Return:
-               health: player healh
-        """
         return self.health
     
     def get_blocks(self):
-        """
-            Sets initial blocks the player dto 0.
-        
-        Attribuites:
-                    blocks: the blocks users have
-                    
-        Return: 
-                blocks: player blocks
-        
-        """
         return self.blocks
     
     def block(self):
-         """
-            Adds 1 everytime the players uses a block. 
-        
-        Attribuites:
-                    blocks: the blocks users have
-                    
-        Return: 
-                blocks: players blocks
-        
-        """
         self.blocks += 1
     
 # Actions ------------------------------------------------------------------
@@ -201,12 +134,6 @@ class Player(PowerUp):
         return self.health
 
     def change_attack(self):
-        """
-            Allows the users to change their current attack.
-        
-        Attribuite:
-                   attack: inital power up is 1
-        """
         self.attack += 1 # <------------------------------------- find a power up
     
     def on_defense(self, number):
@@ -319,21 +246,8 @@ class Player(PowerUp):
         else:
             self.add_super2(True)
             return None
-        
-        
     # Critical hit ------------------------------------------------------------------
     def crit_chance(self):
-        """
-           If the player wants to preform a critical hit, it will pick
-        a random number 0-11. If less then 4, the player will hit, else no. 
-        
-        Attribuite: 
-                   crit_set:  random number between (0,11)
-        
-        Return: 
-                attack + 50: the critical hit worked
-                attack: the critical hit did not work
-        """
         crit_set = random.randrange(0,11)
         if crit_set <= 3:
             print("Critical Hit!")
@@ -342,18 +256,6 @@ class Player(PowerUp):
             return self.attack
                 
     def attack_opponent(self):
-         """
-           The options the player has for the way they want to attack.
-        
-        Attribuite: 
-                   reg_options: int, 1-6
-                   greeting: int, 1-3
-                   player_: the kinds of attacks
-                   each: each attack
-    
-        Return: 
-                each: each attack choosen.
-        """
         reg_options = [1,2,3,4,6]
         #greet -------------------------------------------
         greeting = random.randrange(1,3)
@@ -420,42 +322,13 @@ class Player(PowerUp):
 #Declare winner and loser ---------------------------------------------
 
     def loss(self):
-        """
-            Tells the player that they lost the game.
-            
-        Attribute:
-                  name: players name
-
-        Return:
-                name, you lose: the players name and that they lost. 
-        """
         return f"{self.name}, you lose."
     
     def winner(self):
-        """
-            Tells the player that they won the game.
-            
-        Attribute:
-                  name: players name
-
-        Return:
-                name, you win!: the players name and that they won. 
-        """
         return f"------{self.name}, you win!------"
 
     #Play Game Again------------------------------------------------------
     def play_again(self):
-        """
-            After they lose or the game is over, the player
-        is given the option to play the game again
-        
-        Attribute: 
-                  option: either yes or no. Asking users if they want to play again
-                  dont_play(): they do not want to play again
-                  
-        Returns: 
-                else option: Asked to try again when invalid response read
-        """
         option = input(" Would you like to play again?").lower()
         while True:
             if option == "yes":
@@ -467,45 +340,18 @@ class Player(PowerUp):
     
     #Exits the game-----------------            
     def dont_play(self):
-        """
-           Thanks the user for playing the game and tells them to see leaderboard.
-        
-        Attribute: 
-                   check_leaderboard(): calls the function
-                   exit(): calls the exit function
-        
-        Return: 
-                string: "Thanks for playinh" if chosen to exit game. 
-        """
-
         print("Thanks for playing! Check out the leaderboards")
         check_leaderboard()
         exit()
 
 # check leaderboard function ------------------------------------------------------------------
 def check_leaderboard():
-    """
-       Gives the users the chance to view and read the leaderboards    
-        
-        Attribute: 
-                  contents: reads CSV file 
-                  open: opens CVS file
-        
-        Return: 
-                contents: The components of the cvs file. 
-    """
-
     print("Leaderboard: \n")
     with open('leaderboard.txt') as f:
         contents = f.read()
         print(contents)
 
 def play_game():
-    """
-        The function where the player gets to set up how they 
-    want their game properties to be
-    
-    """
     number_of_players = input("Choose (1) 1 player or (2) 2 players: ")
     number_of_players = int(number_of_players)
     rounds = 0
@@ -576,7 +422,4 @@ def play_game():
                 
             
 if __name__ == "__main__":
-    """
-        Runs the function where the game is. 
-    """
     play_game()
