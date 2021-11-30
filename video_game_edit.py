@@ -168,7 +168,7 @@ class Player(PowerUp):
         return self.blocks
     
     def block(self):
-         """
+        """
             Adds 1 everytime the players uses a block. 
         
         Attribuites:
@@ -196,11 +196,11 @@ class Player(PowerUp):
         self.health = 0
         print(f"{self.name} you forfeit!")
     
-    def change_health(self, number):
+    def set_health(self, number):
         self.health -= number
         return self.health
 
-    def change_attack(self):
+    def set_attack(self):
         """
             Allows the users to change their current attack.
         
@@ -235,7 +235,7 @@ class Player(PowerUp):
             else:
                 print(self.name, f"-{number} health")
                 time.sleep(1)
-                self.change_health(number)
+                self.set_health(number)
             return "Opponent Striked"
     
     
@@ -252,17 +252,6 @@ class Player(PowerUp):
             if self.special >= 50:
                 self.special = 0
                 self.super_hit +=1
-
-    ''' def add_super(self):
-        
-        if self.attack == 50:
-            self.attack = 5
-            self.special = 0
-        self.special += 5
-        
-        if self.special == 50:
-            self.attack = 50
-            self.special = 0'''
 
     def attack_opponent2(self, number):
         """
@@ -348,7 +337,7 @@ class Player(PowerUp):
             return self.attack
                 
     def attack_opponent(self):
-         """
+        """
            The options the player has for the way they want to attack.
         
         Attribuite: 
@@ -549,10 +538,20 @@ def play_game():
             if count == 0:
                 players[0].on_defense(players[1].attack_opponent2(random.randrange(1,5)))
                 count += 1
+            
+            for each in players:
+                if each.get_health() < 1:
+                        print("\n------------STATS------------")
+                        for player in players:
+                            print(f"{player.get_name()} - Health: {player.get_health()}, Blocks: {player.get_blocks()}")
+                        print(players[(players.index(each)+1)%2].winner())
+                        print(f"      Total rounds: {rounds}")
+                        var = False
+                        break
+            
             if count == 1:
                 count = 0
                 players[1].on_defense(players[0].attack_opponent())
-        
         
             for each in players:
                 if each.get_health() < 1:
@@ -563,6 +562,7 @@ def play_game():
                         print(f"      Total rounds: {rounds}")
                         var = False
                         break
+                    
         if number_of_players == 2:
             for each in players:
                 rounds += 1
