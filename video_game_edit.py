@@ -328,18 +328,6 @@ class Player(PowerUp):
 
 #Declare winner and loser ---------------------------------------------
 
-    def get_loss(self):
-        """
-            Tells the player that they lost the game.
-            
-        Attribute:
-                  name: players name
-
-        Return:
-                name, you lose: the players name and that they lost. 
-        """
-        return f"{self.name}, you lose."
-    
     def get_winner(self):
         """
             Tells the player that they won the game.
