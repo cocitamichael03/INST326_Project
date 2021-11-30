@@ -7,6 +7,7 @@ vinny
 vinny
 cocita
 c
+<<<<<<< Updated upstream
 cocitamichael03,lose
 c,lose
 c,lose
@@ -15,3 +16,11 @@ c,lose
 cocitamichael03,win
 cocitamichael03,lose
 c,lose
+=======
+w,win
+w,lose
+q,lose
+1,lose
+no,lose
+nnon,lose
+>>>>>>> Stashed changes
