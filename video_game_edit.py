@@ -230,9 +230,14 @@ class Player(PowerUp):
                 time.sleep(1)
                 self.block()
             else:
-                print(self.name, f"-{number} health")
-                time.sleep(1)
-                self.set_health(number)
+                if number > 0:
+                    print(self.name, f" lost -{number} health")
+                    time.sleep(1)
+                    self.change_health(number)
+                else:
+                    print(self.name, f"lost {number} health")
+                    time.sleep(1)
+                    self.change_health(number)
             return "Opponent Striked"
     
     
