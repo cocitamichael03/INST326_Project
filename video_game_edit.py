@@ -1,7 +1,6 @@
 import random
 import time
 
-
 def choose_character(player):
     """
         Allows the player to choose their character 
@@ -91,8 +90,6 @@ class PowerUp:
         """
             Sets the initial value of powerup to 0 and
         changes it to 2 if users wants to use powerup
-        
-        
         
         Returns:
                 2: powerup level 2
@@ -198,7 +195,7 @@ class Player(PowerUp):
     
     def set_health(self, number):
         self.health -= number
-        return self.health
+        self.get_health()
 
     def set_attack(self):
         """
@@ -414,7 +411,7 @@ class Player(PowerUp):
 
 #Declare winner and loser ---------------------------------------------
 
-    def loss(self):
+    def get_loss(self):
         """
             Tells the player that they lost the game.
             
@@ -426,7 +423,7 @@ class Player(PowerUp):
         """
         return f"{self.name}, you lose."
     
-    def winner(self):
+    def get_winner(self):
         """
             Tells the player that they won the game.
             
@@ -470,7 +467,7 @@ class Player(PowerUp):
                    exit(): calls the exit function
         
         Return: 
-                string: "Thanks for playinh" if chosen to exit game. 
+                string: "Thanks for playing" if chosen to exit game. 
         """
 
         print("Thanks for playing! Check out the leaderboards")
@@ -535,34 +532,39 @@ def play_game():
         if number_of_players == 1:
             rounds += 1
             opponent = players[1]
+
             if count == 0:
                 players[0].on_defense(players[1].attack_opponent2(random.randrange(1,5)))
                 count += 1
             
             for each in players:
                 if each.get_health() < 1:
-                        print("\n------------STATS------------")
-                        for player in players:
-                            print(f"{player.get_name()} - Health: {player.get_health()}, Blocks: {player.get_blocks()}")
-                        print(players[(players.index(each)+1)%2].winner())
-                        print(f"      Total rounds: {rounds}")
-                        var = False
-                        break
+                    print("\n------------STATS------------")
+                    for player in players:
+                        print(f"{player.get_name()} - Health: {player.get_health()}, Blocks: {player.get_blocks()}")
+                    print(players[(players.index(each)+1)%2].get_winner())
+                    print(f"      Total rounds: {rounds}")
+                    var = False
+                    break
+                    
             
             if count == 1:
-                count = 0
-                players[1].on_defense(players[0].attack_opponent())
+                if var == False:
+                    break
+                else:
+                    count = 0
+                    players[1].on_defense(players[0].attack_opponent())
         
             for each in players:
                 if each.get_health() < 1:
-                        print("\n------------STATS------------")
-                        for player in players:
-                            print(f"{player.get_name()} - Health: {player.get_health()}, Blocks: {player.get_blocks()}")
-                        print(players[(players.index(each)+1)%2].winner())
-                        print(f"      Total rounds: {rounds}")
-                        var = False
-                        break
-                    
+                    print("\n------------STATS------------")
+                    for player in players:
+                        print(f"{player.get_name()} - Health: {player.get_health()}, Blocks: {player.get_blocks()}")
+                    print(players[(players.index(each)+1)%2].get_winner())
+                    print(f"      Total rounds: {rounds}")
+                    var = False
+                    break
+
         if number_of_players == 2:
             for each in players:
                 rounds += 1
@@ -573,7 +575,7 @@ def play_game():
                     print("\n------------STATS------------")
                     for player in players:
                         print(f"{player.get_name()} - Health: {player.get_health()}, Blocks: {player.get_blocks()}")
-                    print(players[(players.index(each)+1)%2].winner())
+                    print(players[(players.index(each)+1)%2].get_winner())
                     print(f"      Total rounds: {rounds}")
                     var = False
                     break
