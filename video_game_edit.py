@@ -92,7 +92,7 @@ class PowerUp:
 class Player(PowerUp):
     def __init__(self, name, chr_numb):
         self.name = name
-        self.health = 1# <-----------------------------health
+        self.health = 100# <-----------------------------health
         self.times_2_attack = 0
         self.attack = 20  # <-----------------------------attack
         self.blocks = 0
