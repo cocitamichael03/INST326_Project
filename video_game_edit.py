@@ -3,39 +3,8 @@ import time
 import choose_character
 import character
 
-#-----------------------------------------Character function---------------------------------
-
-
-#-----------------------------------------Power Up Class---------------------------------
-class PowerUp:
-    """
-    
-    
-
-    
-    """
-    def __init__(self):
-        """
-        
-        
-        """
-        return self.powerup
-    
-    def power_up(self):
-        """
-            Sets the initial value of powerup to 0 and
-        changes it to 2 if users wants to use powerup
-        
-        
-        Returns:
-                
-        """
-        self.powerup = 0
-        if self.powerup == 0:
-            return 2
-
 #-----------------------------------------Player Class------------------------------------
-class Player(PowerUp):
+class Player:
     def __init__(self, name, chr_numb):
         self.name = name
         self.health = 100# <-----------------------------health
