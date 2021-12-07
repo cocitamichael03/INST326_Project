@@ -1,70 +1,9 @@
 import random
 import time
-
-def choose_character(player):
-    """
-        Allows the player to choose their character 
-    or assign a character to the computer bot.
-
-    Args: 
-        time.sleep(.9): paues execution for .9 seconds
-        player: user (1 player) or computer bot (2 player)
-        x : the int being inputted by the user when picking character
-    
-    Returns:
-            int(x): the selected or randomized name of character
-    """
-    
-    if player != "computer":
-        x = input(f"\n{player}, please choose a character:\n(1) Volcamore     (2) Falconstein\n(3) Gasmosphere   (4) Atomic Tic\n----->")
-    
-    else:
-        x = random.randrange(1,5)
-    
-    x = int(x)
-    x = int(x)
-    
-    if x == 1:
-        print(f"{player}, you are Volcamore!")
-    
-    elif x == 2:
-        print(f"{player}, you are Falconstein!")
-    
-    elif x == 3:
-        print(f"{player}, you are Gasmosphere!")
-    
-    elif x == 4:
-        print(f"{player}, you are Atomic Tic!")
-    
-    time.sleep(.9)
-    return int(x)
+import choose_character
+import character
 
 #-----------------------------------------Character function---------------------------------
-
-def character(chr_numb):
-    """
-        Allows user to choose the kind of
-    attack fortheir selected character. 
-    
-    Args: 
-         chr_numb: Accepts int one through six. 
-
-    Returns:
-         chr_numb == 1 : The attack options for Volcamore and an exit option.
-         chr_numb == 2 : The attack options for Falconstein and an exit option. 
-         chr_numb == 3 : The attack options for Gasmosphere and an exit option. 
-         chr_numb == 4 : The attack options for Atomic Tin and an exit option. 
-    """
-    
-    if chr_numb == 1: #Volcamore
-        return f"Please choose attack: \n(1) Ash storm      (2) Rock smash\n(3) Volcanic blaze (4) +15 special.\nChoose (6) to exit.\n-----> "
-    
-    if chr_numb == 2: #Falconstein 
-        return f"Please choose attack: \n(1) Birdseye       (2) Big punch \n(3) Volcanic blaze (4) +15 special.\nChoose (6) to exit.\n-----> "
-    if chr_numb == 3: #Gasmosphere
-        return f"Please choose attack: \n(1) Gas mist       (2) Fiery breeze\n(3) Forest fire  (4) +15 special.\nChoose (6) to exit.\n-----> "
-    if chr_numb == 4: #Atomic Tic
-        return f"Please choose attack: \n(1) Explode        (2) Radiactice wave\n(3) Atomic bomb (4) +15 special.\nChoose (6) to exit.\n-----> "
 
 
 #-----------------------------------------Power Up Class---------------------------------
@@ -228,13 +167,13 @@ class Player(PowerUp):
             if int(a) == 5:
                 
                 if self.super_hit == 0:
-                    a = input(f"You do not have any super hits!\n{character(self.chr_numb)}")
+                    a = input(f"You do not have any super hits!\n{character.char(self.chr_numb)}")
                     
                 elif self.super_hit > 0:
                     break
             
             else:
-                a = input(f"That input is invalid.\n{character(self.chr_numb)}")
+                a = input(f"That input is invalid.\n{character.char(self.chr_numb)}")
         
         a = int(a)
         opp_def = random.randrange(1,3)
@@ -332,7 +271,7 @@ class Player(PowerUp):
                 time.sleep(.75)
         
         #functions for characters----------------------------------------------- 
-        a = input(character(self.chr_numb))
+        a = input(character.char(self.chr_numb))
         a = int(a)
         while True:  #-----------------------Pick an attack (6) will be exit
             
@@ -342,12 +281,12 @@ class Player(PowerUp):
             if int(a) == 5:
                 
                 if self.super_hit == 0:
-                    a = input(f"You do not have any super hits!\n{character(self.chr_numb)}")
+                    a = input(f"You do not have any super hits!\n{character.char(self.chr_numb)}")
                     
                 elif self.super_hit > 0:
                     break
             else:
-                a = input(f"That input is invalid.\n{character(self.chr_numb)}")
+                a = input(f"That input is invalid.\n{character.char(self.chr_numb)}")
         
         a = int(a)
         opp_def = random.randrange(1,3)
@@ -436,7 +375,7 @@ class Player(PowerUp):
         lb_check = input("Would you like to check the leaderboard? (yes or no) ")
         
         if lb_check == "yes":
-            check_leaderboard
+            check_leaderboard()
         
         exit()
 
@@ -464,14 +403,14 @@ def play_game():
     if number_of_players == 1:
         player1 = input("Player 1, enter your screen name: ")
         player2 = "computer"
-        player1_chr = choose_character(player1)
-        players = [Player(player1, player1_chr), Player(player2, choose_character("computer"))]
+        player1_chr = choose_character.choose(player1)
+        players = [Player(player1, player1_chr), Player(player2, choose_character.choose("computer"))]
 
     if number_of_players == 2:
         player1 = input("Player 1, enter your screen name: ")
         player2 = input("Player 2, enter your screen name: ")
-        player1_chr = choose_character(player1)
-        player2_chr = choose_character(player2)
+        player1_chr = choose_character.choose(player1)
+        player2_chr = choose_character.choose(player2)
         players = [Player(player1, player1_chr), Player(player2, player2_chr)]
 
     count = 0
