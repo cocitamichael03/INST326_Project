@@ -99,7 +99,7 @@ class PowerUp:
 class Player(PowerUp):
     def __init__(self, name, chr_numb):
         self.name = name
-        self.health = 1# <-----------------------------health
+        self.health = 100# <-----------------------------health
         self.times_2_attack = 0
         self.attack = 20  # <-----------------------------attack
         self.blocks = 0
@@ -283,7 +283,6 @@ class Player(PowerUp):
             self.add_super(True)
             return None
 
-    # Critical hit ------------------------------------------------------------------
     def crit_chance(self):
         """This method gives the player on offense a random change of getting a critical hit which is dependent upon
         a randomly generated number. This method is called for both the computer_attack() and player_attack() methods when returning the attack.
@@ -298,6 +297,7 @@ class Player(PowerUp):
         else:
             return self.attack
                 
+    # Critical hit ------------------------------------------------------------------      
     def attack_opponent(self):
         """
         This method is the attack component for players. It first greets the player on offense, then shows the players stats, 
@@ -391,7 +391,6 @@ class Player(PowerUp):
             return None 
 
 #Declare winner and loser ---------------------------------------------
-
     def get_winner(self):
         """
             Tells the player that they won the game.
@@ -404,7 +403,6 @@ class Player(PowerUp):
         """
         return f"------{self.name}, you win!------"
     
-
     #Play Game Again------------------------------------------------------
     def play_again(self):
         """
@@ -451,7 +449,13 @@ def check_leaderboard():
         print(contents)
 
 def play_game():
-    
+    """
+    This method initiates the game by asking the player if it will be single player or multiplayer. From there it creates instances of the Player class
+    according to the input of the amount of players. The appropriate while loop is then executed for game play.
+    The health of each player is examined each round to determine if the zero health limit is reached, ending the game if so.
+    The game stats are displayed at the end of the game as well as the players stats being added to the leaderboard.
+    The play_again method from the Player class is then called to give the player(s) the option to play again.
+    """
     number_of_players = input("Choose (1) 1 player or (2) 2 players: ")
     number_of_players = int(number_of_players)
     rounds = 0
