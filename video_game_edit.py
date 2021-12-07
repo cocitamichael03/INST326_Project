@@ -17,18 +17,25 @@ def choose_character(player):
     
     if player != "computer":
         x = input(f"\n{player}, please choose a character:\n(1) Volcamore     (2) Falconstein\n(3) Gasmosphere   (4) Atomic Tic\n----->")
+    
     else:
         x = random.randrange(1,5)
+    
     x = int(x)
     x = int(x)
+    
     if x == 1:
         print(f"{player}, you are Volcamore!")
+    
     elif x == 2:
         print(f"{player}, you are Falconstein!")
+    
     elif x == 3:
         print(f"{player}, you are Gasmosphere!")
+    
     elif x == 4:
         print(f"{player}, you are Atomic Tic!")
+    
     time.sleep(.9)
     return int(x)
 
@@ -180,6 +187,7 @@ class Player(PowerUp):
         """
         if times_2 == True:
             self.special += 10
+        
         if times_2 == False:
             self.special += 5
             if self.special >= 50:
@@ -197,7 +205,7 @@ class Player(PowerUp):
             self.attack = 50
             self.special = 0'''
 
-    def attack_opponent2(self, number):
+    def computer_attack(self, number):
         reg_options = [1,2,3,4]
         print(f"{self.name}'s turn.")
         time.sleep(.25)
@@ -207,52 +215,67 @@ class Player(PowerUp):
         a = number
         a = int(a)
         while True:
+            
             if int(a) in reg_options:
                 break
+            
             if int(a) == 5:
+                
                 if self.super_hit == 0:
                     a = input(f"You do not have any super hits!\n{character(self.chr_numb)}")
                     
                 elif self.super_hit > 0:
                     break
+            
             else:
                 a = input(f"That input is invalid.\n{character(self.chr_numb)}")
         a = int(a)
         opp_def = random.randrange(1,3)
         self.power_up_level += 5
         self.add_super2()
+        
         if a == 1:
             opp_def = 1
+            
             if a == opp_def:
                 print("Computer attacked you!") 
                 time.sleep(.5)
                 return self.attack
+        
         elif a == 2:
             opp_def = random.randrange(1,3)
+            
             if a == opp_def:
                 print("Computer attacked you!") 
                 time.sleep(.5)
                 return self.attack + 10
+           
             else:
                 print(f"{self.name} missed!")
                 time.sleep(.5)
                 return 0
+       
         elif a == 3:
             opp_def = random.randrange(1,4)
+            
             if a == opp_def:
                 print("Computer attacked you!") 
                 time.sleep(.5)
                 return self.attack + 20
+            
             else:
                 print(f"{self.name} missed!")
                 time.sleep(.5)
                 return 0
+        
         elif a == 5:
             self.super_hit -= 1
             return 60
+        
         else:
             self.add_super2(True)
             return None
+
     # Critical hit ------------------------------------------------------------------
     def crit_chance(self):
         crit_set = random.randrange(0,11)
@@ -368,8 +391,12 @@ class Player(PowerUp):
                 string: "Thanks for playing" if chosen to exit game. 
         """
 
-        print("Thanks for playing! Check out the leaderboards")
-        check_leaderboard()
+        print("Thanks for playing")
+        lb_check = input("Would you like to check the leaderboard? (yes or no) ")
+        
+        if lb_check == "yes":
+            check_leaderboard
+        
         exit()
 
 # check leaderboard function ------------------------------------------------------------------
@@ -416,7 +443,7 @@ def play_game():
             opponent = players[1]
 
             if count == 0:
-                players[0].on_defense(players[1].attack_opponent2(random.randrange(1,5)))
+                players[0].on_defense(players[1].computer_attack(random.randrange(1,5)))
                 count += 1
             
             for each in players:
