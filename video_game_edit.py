@@ -99,7 +99,7 @@ class PowerUp:
 class Player(PowerUp):
     def __init__(self, name, chr_numb):
         self.name = name
-        self.health = 100# <-----------------------------health
+        self.health = 1# <-----------------------------health
         self.times_2_attack = 0
         self.attack = 20  # <-----------------------------attack
         self.blocks = 0
@@ -111,15 +111,19 @@ class Player(PowerUp):
 # Player Stats -----------------------------------------------------------
     
     def get_name(self):
+        """Returns the name of the player as a string value."""
         return self.name
     
     def get_health(self):
+        """Returns the health of the player as a string value."""
         return self.health
     
     def get_blocks(self):
+        """Returns the number of blocks as a string value for the player."""
         return self.blocks
     
     def block(self):
+        """A counter for the number of blocks for a player."""
         self.blocks += 1
     
 # Actions ------------------------------------------------------------------
@@ -139,6 +143,10 @@ class Player(PowerUp):
         print(f"{self.name} you forfeit!")
     
     def change_health(self, number):
+        """
+        This method subtracts the attack of the other player on offense from the health of the current player on defense.
+        It then calls on the get_health method.
+        """
         self.health -= number
         self.get_health()
 
@@ -148,7 +156,9 @@ class Player(PowerUp):
     def on_defense(self, number):
         """
             Allows the defensive player to potentially block
-        the attack of the ofensive player. 
+        the attack of the offensive player depending on the randomly generated integer.
+        If the player does not block, the change_health method is called
+        and the current player on defense loses health.
         
         Args:
              number:
@@ -156,12 +166,14 @@ class Player(PowerUp):
              time.sleep(1): delays execution for 1 second
              
         Returns:
-                {self.name}, opponent did not strike: when 
+                Whether or not the opponent striked.
         """
         ran = random.randrange(0,5)
+        
         if number == None:
             print(f"{self.name}, opponent did not strike.")
             time.sleep(1)
+        
         else:
 
             if ran == 1:
@@ -178,12 +190,12 @@ class Player(PowerUp):
                     time.sleep(1)
                     self.change_health(number)
             return "Opponent Striked"
-    
-    
-    def add_super2(self, times_2 = False):
+     
+    def add_super(self, times_2 = False):
         """
-            
-        
+        This method is called during each round for each player and adds 10 to the total special as well as checking to see if the player
+        has reached the threshold to gain a special attack. If the obtained amount of special meets the threshold, a special hit is added
+        to the players inventory and can be used. The special is then moved back to 0 to be regenerated in further rounds.
         """
         if times_2 == True:
             self.special += 10
@@ -194,24 +206,18 @@ class Player(PowerUp):
                 self.special = 0
                 self.super_hit +=1
 
-    ''' def add_super(self):
-        
-        if self.attack == 50:
-            self.attack = 5
-            self.special = 0
-        self.special += 5
-        
-        if self.special == 50:
-            self.attack = 50
-            self.special = 0'''
-
     def computer_attack(self, number):
+        """
+        This method is the attack component only for the computer. 
+        It has the same functionality as the attack_opponent designed for players to manually input answers minus the input.
+        
+        Returns:
+            Either none, zero (integer), or an integer that is applied towards the opponent on defense's health.
+         """
         reg_options = [1,2,3,4]
         print(f"{self.name}'s turn.")
         time.sleep(.25)
         
-        
-        #functions for characters
         a = number
         a = int(a)
         while True:
@@ -229,10 +235,11 @@ class Player(PowerUp):
             
             else:
                 a = input(f"That input is invalid.\n{character(self.chr_numb)}")
+        
         a = int(a)
         opp_def = random.randrange(1,3)
         self.power_up_level += 5
-        self.add_super2()
+        self.add_super()
         
         if a == 1:
             opp_def = 1
@@ -240,7 +247,7 @@ class Player(PowerUp):
             if a == opp_def:
                 print("Computer attacked you!") 
                 time.sleep(.5)
-                return self.attack
+                return self.crit_chance()
         
         elif a == 2:
             opp_def = random.randrange(1,3)
@@ -248,7 +255,7 @@ class Player(PowerUp):
             if a == opp_def:
                 print("Computer attacked you!") 
                 time.sleep(.5)
-                return self.attack + 10
+                return self.crit_chance() + 10
            
             else:
                 print(f"{self.name} missed!")
@@ -261,7 +268,7 @@ class Player(PowerUp):
             if a == opp_def:
                 print("Computer attacked you!") 
                 time.sleep(.5)
-                return self.attack + 20
+                return self.crit_chance() + 20
             
             else:
                 print(f"{self.name} missed!")
@@ -273,11 +280,17 @@ class Player(PowerUp):
             return 60
         
         else:
-            self.add_super2(True)
+            self.add_super(True)
             return None
 
     # Critical hit ------------------------------------------------------------------
     def crit_chance(self):
+        """This method gives the player on offense a random change of getting a critical hit which is dependent upon
+        a randomly generated number. This method is called for both the computer_attack() and player_attack() methods when returning the attack.
+        
+        Returns:
+            self.attack + 50 or self.attack which is an integer value.
+        """
         crit_set = random.randrange(0,11)
         if crit_set <= 3:
             print("Critical Hit!")
@@ -286,20 +299,34 @@ class Player(PowerUp):
             return self.attack
                 
     def attack_opponent(self):
+        """
+        This method is the attack component for players. It first greets the player on offense, then shows the players stats, 
+        and then calls on the corresponding character through the character() function for a list of moves to choose from.
+        It then takes the players input for a move and runs it through the corresponding if statement to see whether the hit lands or misses
+        depending on the randomly generated number.
+        
+        Returns:
+            Either none, zero (integer), or an integer that is applied towards the opponent on defense's health.
+         """
         reg_options = [1,2,3,4,6]
-        #greet -------------------------------------------
         greeting = random.randrange(1,3)
+        
         if greeting == 1:
             greeting = "you're up!"
+        
         elif greeting == 2:
             greeting = "Let's go!"
+        
         else:
             greeting = "you got this!"
+        
         #greet -------------------------------------------
 
         player_ = [f"\n{self.name}, {greeting}\nStats - Attack: {self.attack}, Special: {self.special}, Health: {self.health}, Super hits: {self.super_hit}"]
+        
         for each in player_:
             lines = each.split("\n")
+            
             for each in lines:
                 print(each)
                 time.sleep(.75)
@@ -308,9 +335,12 @@ class Player(PowerUp):
         a = input(character(self.chr_numb))
         a = int(a)
         while True:  #-----------------------Pick an attack (6) will be exit
+            
             if int(a) in reg_options:
                 break
+            
             if int(a) == 5:
+                
                 if self.super_hit == 0:
                     a = input(f"You do not have any super hits!\n{character(self.chr_numb)}")
                     
@@ -318,35 +348,46 @@ class Player(PowerUp):
                     break
             else:
                 a = input(f"That input is invalid.\n{character(self.chr_numb)}")
+        
         a = int(a)
         opp_def = random.randrange(1,3)
         self.power_up_level += 5
-        self.add_super2()
+        self.add_super()
+        
         if a == 1:
             opp_def = 1
             if a == opp_def:
                 return self.crit_chance()
+        
         elif a == 2:
             opp_def = random.randrange(1,3)
+            
             if a == opp_def:
                 return self.crit_chance() + 10
+            
             else:
                 print(f"{self.name}, you missed!")
                 return 0
+        
         elif a == 3:
             opp_def = random.randrange(1,4)
+            
             if a == opp_def:
                 return self.crit_chance() + 20
+            
             else:
                 print(f"{self.name}, you missed!")
                 return 0
+        
         elif a == 5:
             self.super_hit -= 1
             return 60
+        
         elif a == 6:
             self.exit_game()
+        
         else:
-            self.add_super2(True)
+            self.add_super(True)
             return None 
 
 #Declare winner and loser ---------------------------------------------
@@ -361,14 +402,16 @@ class Player(PowerUp):
         Return:
                 name, you win!: the players name and that they won. 
         """
-    def loss(self):
-        return f"{self.name}, you lose."
-    
-    def winner(self):
         return f"------{self.name}, you win!------"
+    
 
     #Play Game Again------------------------------------------------------
     def play_again(self):
+        """
+        This method gives the player the option to play again and is called in the play_game() function after a player reaches 0 health.
+        If the player chooses to play again, the play_game() function is called and if the player does not want to play again,
+        the dont_play() method is called. 
+        """
         option = input(" Would you like to play again?").lower()
         while True:
             if option == "yes":
@@ -381,7 +424,7 @@ class Player(PowerUp):
     #Exits the game-----------------            
     def dont_play(self):
         """
-           Thanks the user for playing the game and tells them to see leaderboard.
+           Thanks the user for playing the game and allows them to see the leaderboard if they desire.
         
         Attribute: 
                    check_leaderboard(): calls the function
@@ -401,12 +444,14 @@ class Player(PowerUp):
 
 # check leaderboard function ------------------------------------------------------------------
 def check_leaderboard():
+    """This function opens up the leaderboard."""
     print("Leaderboard: \n")
     with open('leaderboard.txt') as f:
         contents = f.read()
         print(contents)
 
 def play_game():
+    
     number_of_players = input("Choose (1) 1 player or (2) 2 players: ")
     number_of_players = int(number_of_players)
     rounds = 0
