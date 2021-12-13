@@ -7,7 +7,7 @@ import character
 class Player:
     def __init__(self, name, chr_numb):
         self.name = name
-        self.health = 1
+        self.health = 100
         self.times_2_attack = 0
         self.attack = 20  
         self.blocks = 0
@@ -387,7 +387,7 @@ def play_game():
         if var == False:
             leaderboard = open("leaderboard.txt", "a")
             for each in players:
-                print(each.get_health())
+                
                 if int(each.get_health()) > 0:
                     result = "win"
                 else:
