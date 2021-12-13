@@ -1,1 +1,9 @@
 
+cocita,lose
+c,lose
+c,lose
+<__main__.Player object at 0x000001F8B1EBADC0>,win
+<__main__.Player object at 0x000001609A3EADC0>,win
+<__main__.Player object at 0x000001609A3EAD30>,lose
+cocita,win
+computer,lose
